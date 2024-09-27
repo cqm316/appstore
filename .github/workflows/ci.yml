@@ -31,7 +31,6 @@ jobs:
         folder: dist
         force: true
         commit-message: appstore deploy
-        repository-name: cqm316/appstore
 
     - name: Cleanup
       run: rm -rf dist
