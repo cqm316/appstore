@@ -1,8 +1,8 @@
 /*
  * @Author: chenqiaomin
  * @Date: 2024-09-25 00:36:16
- * @LastEditors: chenqiaomin@bxqqedu.com chenqiaomin@bxqqedu.com
- * @LastEditTime: 2024-09-27 18:31:41
+ * @LastEditors: cqm316 1913314729@qq.com
+ * @LastEditTime: 2024-09-28 00:32:10
  * @FilePath: appstore\vite.config.ts
  * @Description: vite.config.ts
  */
@@ -26,7 +26,7 @@ const assetsDir = 'assets';
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, root);
   return {
-
+    base: '/appstore/',
     plugins: [
       vue(),
       vueJsx(),
