@@ -24,7 +24,7 @@ jobs:
         NODE_OPTIONS: --max-old-space-size=4096
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.6.3
+      uses: JamesIves/github-pages-deploy-action@v4.3.4
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages
