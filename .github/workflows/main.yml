@@ -22,16 +22,15 @@ jobs:
       env:
         DOC_ENV: production
         NODE_OPTIONS: --max-old-space-size=4096
-
+    
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.3.4
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages
         folder: dist
         force: true
-        commit-message: website deploy
-        repository-name: EralChen/simple-vuesri
 
     - name: Cleanup
-      run: rm -rf docs/dist
+      run: rm -rf dist
