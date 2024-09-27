@@ -2,27 +2,36 @@ name: APPSTORE
 on:
   push:
     branches:
-      - master
+      - main
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Install and Build
-      run: |
-        npm install
-        npm run build
+
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: | 
+        npm install -g pnpm
+        pnpm install
+
+    - name: Build
+      run: npm run build
+      env:
+        DOC_ENV: production
+        NODE_OPTIONS: --max-old-space-size=4096
+
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      uses: JamesIves/github-pages-deploy-action@v4.3.4
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
+        token: ${{ secrets.ACCESS_TOKEN }}
+        branch: gh-pages
         folder: dist
         force: true
-        commit-message: website deploy
-        repository-name: EralChen/simple-vuesri
+        commit-message: appstore deploy
+        repository-name: cqm316/appstore
+
+    - name: Cleanup
+      run: rm -rf dist
