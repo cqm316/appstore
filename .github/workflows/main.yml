@@ -2,35 +2,24 @@ name: APPSTORE
 on:
   push:
     branches:
-      - main
-
+      - master
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-
-    - uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: | 
-        npm install -g pnpm
-        pnpm install
-
-    - name: Build
-      run: npm run build
-      env:
-        DOC_ENV: production
-        NODE_OPTIONS: --max-old-space-size=4096
-    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install and Build
+      run: |
+        npm install
+        npm run-script build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
-      
       with:
-        token: ${{ secrets.ACCESS_TOKEN }}
-        branch: gh-pages
-        folder: dist
-        force: true
-
-    - name: Cleanup
-      run: rm -rf dist
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build
