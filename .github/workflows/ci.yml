@@ -29,7 +29,7 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
 
       - name: List dist folder
-        run: ls -la dist-${{ github.run_id }}  # 列出 dist 目录下的文件以确认构建成功
+        run: ls -la dist  # 列出 dist 目录下的文件以确认构建成功
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
