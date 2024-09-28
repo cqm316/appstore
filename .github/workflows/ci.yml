@@ -29,17 +29,16 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
 
       - name: List dist folder
-        run: ls -la dist  # 调试步骤，确保 dist 文件夹存在并有文件
+        run: ls -la dist  # 列出 dist 目录下的文件
 
       - name: Deploy
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.APP_TOKEN }}
-          id: deployment
-          branch: gh-pages
-          folder: dist
-          force: true
-          commit-message: appstore deploy
+          artifact_name: dist  # 指定要上传的目录名
+          timeout: 600000
+          error_count: 10
+          reporting_interval: 5000
 
       - name: Cleanup
         run: rm -rf dist
