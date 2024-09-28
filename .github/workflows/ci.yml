@@ -40,11 +40,11 @@ jobs:
       - name: Deploy
         uses: actions/deploy-pages@v3
         with:
-          token: ${{ secrets.APP_TOKEN }}
+          token: ${{ secrets.APP_TOKEN }} 
           artifact_name: dist-${{ github.run_id }}  # 保持与上传步骤一致
           timeout: 600000
           error_count: 10
           reporting_interval: 5000
 
       - name: Cleanup
-        run: rm -rf dist-${{ github.run_id }}
+        run: rm -rf dist  # 清理 dist 文件夹
