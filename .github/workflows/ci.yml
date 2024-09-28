@@ -1,36 +1,42 @@
 name: APPSTORE
+
 on:
   push:
     branches:
       - main
+
+permissions:
+  id-token: write  # 添加此行以请求 id-token 权限
+  contents: write   # 如果需要访问内容权限，也可以添加
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: | 
+          npm install -g pnpm
+          pnpm install
 
-    - name: Install dependencies
-      run: | 
-        npm install -g pnpm
-        pnpm install
+      - name: Build
+        run: npm run build
+        env:
+          DOC_ENV: production
+          NODE_OPTIONS: --max-old-space-size=4096
 
-    - name: Build
-      run: npm run build
-      env:
-        DOC_ENV: production
-        NODE_OPTIONS: --max-old-space-size=4096
+      - name: Deploy
+        uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用默认的 GITHUB_TOKEN
+          id: deployment
+          branch: gh-pages
+          folder: dist
+          force: true
+          commit-message: appstore deploy
 
-    - name: Deploy
-      uses: actions/deploy-pages@v2
-      with:
-        id: deployment
-        branch: gh-pages
-        folder: dist
-        force: true
-        commit-message: appstore deploy
-
-    - name: Cleanup
-      run: rm -rf dist
+      - name: Cleanup
+        run: rm -rf dist
