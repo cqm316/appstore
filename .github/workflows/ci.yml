@@ -32,7 +32,7 @@ jobs:
         run: ls -la dist  # 调试步骤，确保 dist 文件夹存在并有文件
 
       - name: Deploy
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3
         with:
           token: ${{ secrets.APP_TOKEN }}
           id: deployment
