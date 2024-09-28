@@ -31,6 +31,12 @@ jobs:
       - name: List dist folder
         run: ls -la dist  # 列出 dist 目录下的文件以确认构建成功
 
+      - name: Debug
+        run: |
+          echo "Artifact Name: dist-${{ github.run_id }}"
+          echo "Files in dist:"
+          ls -la dist
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -40,7 +46,7 @@ jobs:
       - name: Deploy
         uses: actions/deploy-pages@v3
         with:
-          token: ${{ secrets.APP_TOKEN }} 
+          token: ${{ secrets.APP_TOKEN }}  # 确保 token 设置正确
           artifact_name: dist-${{ github.run_id }}  # 保持与上传步骤一致
           timeout: 600000
           error_count: 10
