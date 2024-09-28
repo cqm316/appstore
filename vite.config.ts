@@ -2,7 +2,7 @@
  * @Author: chenqiaomin
  * @Date: 2024-09-25 00:36:16
  * @LastEditors: cqm316 1913314729@qq.com
- * @LastEditTime: 2024-09-28 00:32:10
+ * @LastEditTime: 2024-09-28 20:12:26
  * @FilePath: appstore\vite.config.ts
  * @Description: vite.config.ts
  */
@@ -157,7 +157,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       },
     },
     build: {
-      assetsDir: assetsDir,
+      outDir: 'dist', 
+      assetsDir,
       sourcemap: false,
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
