@@ -29,13 +29,19 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096
 
       - name: List dist folder
-        run: ls -la dist  # 列出 dist 目录下的文件
+        run: ls -la dist  # 列出 dist 目录下的文件以确认构建成功
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
 
       - name: Deploy
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.APP_TOKEN }}
-          artifact_name: dist  # 指定要上传的目录名
+          artifact_name: dist  # 保持与上传步骤一致
           timeout: 600000
           error_count: 10
           reporting_interval: 5000
